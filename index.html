@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>still - Connection Across the Void</title>
+    <!-- 更新 Meta Description 以支持双语SEO (虽然 Google 可能会忽略，但这是个好习惯) -->
+    <meta name="description" content="still - A spiritual compass to commemorate departed loved ones. 跨越虚空，连接永存。一个用于纪念逝去亲人的心灵罗盘。">
+    <style>
+        /* 全局设置：深邃、极简、呼吸感 */
+        :root {
+            --bg-color: #050810; /* 深空黑 */
+            --text-primary: #e0e6ed; /* 柔和白 */
+            --text-secondary: #8b9bb0; /* 灰蓝 */
+            --text-faint: #4a5568; /* 暗淡的文字 */
+            --accent-light: #64ffda; /* 冷青光色，匹配图标 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 0%, #1a233a 0%, var(--bg-color) 60%);
+            background-attachment: fixed;
+            /* 平滑过渡字体颜色变化 */
+            transition: color 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative; /* 为了定位语言切换器 */
+        }
+
+        /* === 语言切换器样式 === */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            /* 在移动端调整位置 */
+            @media (max-width: 600px) {
+                top: 10px;
+                right: 10px;
+            }
+        }
+        
+        .lang-btn {
+            background: none;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            color: var(--text-faint);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .lang-btn:hover {
+            color: var(--text-secondary);
+        }
+
+        /* 当前选中的语言高亮 */
+        .lang-btn.active {
+            color: var(--accent-light);
+            cursor: default;
+            pointer-events: none; /* 禁用点击 */
+        }
+
+        .lang-separator {
+            color: var(--text-faint);
+            margin: 0 4px;
+        }
+
+
+        /* Hero 区域 */
+        .hero {
+            margin-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 给顶部留出空间给语言切换器 */
+            margin-top: 40px;
+        }
+
+        /* 模拟 App 图标的光影效果 - 实际发布时请替换为真实的图标图片 */
+        .app-icon-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #0d1626, #050810);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .app-icon-placeholder::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, transparent 45%, var(--accent-light) 50%, transparent 55%);
+            opacity: 0.6;
+            filter: blur(8px);
+        }
+
+        h1.app-title {
+            font-size: 3.5rem;
+            font-weight: 200;
+            letter-spacing: 4px;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+        }
+
+        p.tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            font-weight: 300;
+            /* 增加淡入淡出过渡效果 */
+            transition: opacity 0.3s ease;
+        }
+
+        /* 内容区块 */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        h2.section-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+        }
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-light);
+            margin: 12px auto 0;
+            box-shadow: 0 0 8px var(--accent-light);
+        }
+
+        p.section-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 功能列表 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-item {
+            padding: 20px;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+        .feature-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* 下载按钮区域 */
+        .download-section {
+            margin-top: 80px;
+        }
+        .app-store-button {
+            display: inline-block;
+            background: #000000;
+            border: 1px solid var(--text-secondary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer; /* 确保它是可点击的 */
+        }
+        .app-store-button:hover {
+            border-color: var(--accent-light);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: 100px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-secondary);
+        }
+        /* 用于 JS 控制显示/隐藏的辅助类 */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 语言切换器 -->
+        <div class="lang-switch">
+            <!-- data-lang 属性用于 JS 识别 -->
+            <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">English</button>
+            <span class="lang-separator">/</span>
+            <button class="lang-btn" data-lang="zh" onclick="switchLanguage('zh')">中文</button>
+        </div>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="app-icon-placeholder" title="still App Icon"></div>
+            
+            <h1 class="app-title">still</h1>
+            <!-- 使用 data-en 和 data-zh 存储不同语言的文本 -->
+            <p class="tagline" 
+               data-en="Across the void, the connection remains." 
+               data-zh="跨越虚空，连接永存。">
+               Across the void, the connection remains.
+            </p>
+        </header>
+
+        <main>
+            <!-- Introduction/Philosophy Section -->
+            <section class="section">
+                <h2 class="section-title" 
+                    data-en="The Quiet Center" 
+                    data-zh="寂静中心">
+                    The Quiet Center
+                </h2>
+                <!-- 为了更好的排版，中英文使用了不同的段落结构，用 hidden 类来控制显示 -->
+                <div class="lang-content" data-lang-content="en">
+                    <p class="section-text">
+                        In the vastness of existence, some connections never fade. 
+                        <b>still</b> is more than a compass; it is a spiritual anchor. 
+                        It helps you navigate the space between here and the eternal resting place of those you hold dear.
+                    </p>
+                </div>
+                <div class="lang-content hidden" data-lang-content="zh">
+                    <p class="section-text">
+                        在万法皆空的宇宙中，唯有思念寂静而永恒。
+                        <b>still</b> 不仅仅是一个罗盘，它是心灵的锚点。
+                        指引你穿越现世的喧嚣，望向他们安息的彼岸。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="section">
+                 <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">✧</div>
+                        <div class="feature-title" data-en="The Moment" data-zh="时刻">The Moment</div>
+                        <div class="feature-desc" 
+                             data-en="Mark the stillness of time when they departed." 
+                             data-zh="记录时间静止的那一刻。">
+                             Mark the stillness of time when they departed.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">↑</div>
+                        <div class="feature-title" data-en="The Direction" data-zh="方向">The Direction</div>
+                        <div class="feature-desc" 
+                             data-en="A beam of light pointing to their eternal rest." 
+                             data-zh="一束指向彼岸的光。">
+                             A beam of light pointing to their eternal rest.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">↔</div>
+                        <div class="feature-title" data-en="The Bond" data-zh="羁绊">The Bond</div>
+                        <div class="feature-desc" 
+                             data-en="Measure the physical distance, feel the infinite connection." 
+                             data-zh="丈量有形的距离，感受无尽的羁绊。">
+                             Measure the physical distance, feel the infinite connection.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action / Download Section -->
+            <section class="download-section">
+                <p class="section-text" style="margin-bottom: 30px;" 
+                   data-en="Available soon on the App Store." 
+                   data-zh="即将登陆 App Store">
+                   Available soon on the App Store.
+                </p>
+                <!-- 下载按钮链接，实际发布时请替换 href="#" 为你的 App Store 链接 -->
+                <a href="#" class="app-store-button" 
+                   data-en="Download on the App Store" 
+                   data-zh="在 App Store 下载">
+                    Download on the App Store
+                </a>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2024 <a href="https://github.com/sunyata-space">Sunyata Space</a>. All rights reserved.</p>
+            <p data-en="Still here. Still remembering." data-zh="依然在此。依然铭记。">Still here. Still remembering.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript 语言切换逻辑 -->
+    <script>
+        // 核心切换函数
+        function switchLanguage(lang) {
+            // 1. 更新所有带有 data-en/data-zh 属性的简单文本元素
+            const textElements = document.querySelectorAll('[data-' + lang + ']');
+            textElements.forEach(el => {
+                // 添加一个简单的淡入淡出效果
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    el.textContent = el.getAttribute('data-' + lang);
+                    el.style.opacity = 1;
+                }, 150); // 短暂延迟以配合 CSS transition
+            });
+
+            // 2. 切换复杂的块级内容 (如介绍段落)
+            const contentBlocks = document.querySelectorAll('.lang-content');
+            contentBlocks.forEach(block => {
+                if (block.getAttribute('data-lang-content') === lang) {
+                    block.classList.remove('hidden');
+                } else {
+                    block.classList.add('hidden');
+                }
+            });
+
+            // 3. 更新语言切换按钮的状态
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 4. 更新 HTML 标签的 lang 属性，有利于 SEO 和辅助功能
+            document.documentElement.lang = lang;
+
+            // 5. 保存用户的选择到本地存储
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 页面加载时初始化语言
+        document.addEventListener('DOMContentLoaded', () => {
+            // 优先检查本地存储，如果没有，则默认使用英语 ('en')
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            // 应用保存的语言，但不需要再次保存
+            switchLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
