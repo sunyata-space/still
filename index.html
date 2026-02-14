@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>still - Connection Across the Void</title>
-    <!-- 更新 Meta Description 以支持双语SEO (虽然 Google 可能会忽略，但这是个好习惯) -->
     <meta name="description" content="still - A spiritual compass to commemorate departed loved ones. 跨越虚空，连接永存。一个用于纪念逝去亲人的心灵罗盘。">
+    <!-- 添加 Favicon 图标 (浏览器标签页上的小图标)，直接复用你的 App 图标 -->
+    <link rel="icon" type="image/png" href="app-icon.png">
     <style>
         /* 全局设置：深邃、极简、呼吸感 */
         :root {
@@ -25,7 +26,6 @@
             line-height: 1.6;
             background-image: radial-gradient(circle at 50% 0%, #1a233a 0%, var(--bg-color) 60%);
             background-attachment: fixed;
-            /* 平滑过渡字体颜色变化 */
             transition: color 0.3s ease;
         }
 
@@ -34,7 +34,7 @@
             margin: 0 auto;
             padding: 60px 20px;
             text-align: center;
-            position: relative; /* 为了定位语言切换器 */
+            position: relative;
         }
 
         /* === 语言切换器样式 === */
@@ -43,7 +43,6 @@
             top: 20px;
             right: 20px;
             font-size: 0.9rem;
-            /* 在移动端调整位置 */
             @media (max-width: 600px) {
                 top: 10px;
                 right: 10px;
@@ -65,11 +64,10 @@
             color: var(--text-secondary);
         }
 
-        /* 当前选中的语言高亮 */
         .lang-btn.active {
             color: var(--accent-light);
             cursor: default;
-            pointer-events: none; /* 禁用点击 */
+            pointer-events: none;
         }
 
         .lang-separator {
@@ -84,31 +82,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* 给顶部留出空间给语言切换器 */
             margin-top: 40px;
         }
 
-        /* 模拟 App 图标的光影效果 - 实际发布时请替换为真实的图标图片 */
-        .app-icon-placeholder {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #0d1626, #050810);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.3);
+        /* === 新的图片图标样式 (替换了旧的占位符样式) === */
+        .app-icon {
+            width: 120px; /* 设置宽度 */
+            height: 120px; /* 设置高度 */
+            border-radius: 24px; /* 苹果风格的圆角 */
+            /* 添加青色的辉光阴影，与整体风格统一 */
+            box-shadow: 0 15px 35px -10px rgba(100, 255, 218, 0.4); 
             margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        .app-icon-placeholder::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(to bottom right, transparent 45%, var(--accent-light) 50%, transparent 55%);
-            opacity: 0.6;
-            filter: blur(8px);
+            /* 确保图片按比例填充，不变形 */
+            object-fit: cover;
+            /* 稍微增加一点质感 */
+            border: 1px solid rgba(100, 255, 218, 0.1);
         }
 
         h1.app-title {
@@ -124,7 +112,6 @@
             color: var(--text-secondary);
             margin-top: 16px;
             font-weight: 300;
-            /* 增加淡入淡出过渡效果 */
             transition: opacity 0.3s ease;
         }
 
@@ -195,7 +182,7 @@
             color: white;
             font-weight: 500;
             transition: all 0.3s ease;
-            cursor: pointer; /* 确保它是可点击的 */
+            cursor: pointer;
         }
         .app-store-button:hover {
             border-color: var(--accent-light);
@@ -214,7 +201,6 @@
             text-decoration: none;
             border-bottom: 1px dotted var(--text-secondary);
         }
-        /* 用于 JS 控制显示/隐藏的辅助类 */
         .hidden {
             display: none;
         }
@@ -225,7 +211,6 @@
     <div class="container">
         <!-- 语言切换器 -->
         <div class="lang-switch">
-            <!-- data-lang 属性用于 JS 识别 -->
             <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">English</button>
             <span class="lang-separator">/</span>
             <button class="lang-btn" data-lang="zh" onclick="switchLanguage('zh')">中文</button>
@@ -233,10 +218,11 @@
 
         <!-- Hero Section -->
         <header class="hero">
-            <div class="app-icon-placeholder" title="still App Icon"></div>
+            <!-- === 真实的图标图片 === -->
+            <!-- 请确保你已将图片命名为 app-icon.png 并上传到仓库根目录 -->
+            <img src="app-icon.png" alt="still App Icon" class="app-icon">
             
             <h1 class="app-title">still</h1>
-            <!-- 使用 data-en 和 data-zh 存储不同语言的文本 -->
             <p class="tagline" 
                data-en="Across the void, the connection remains." 
                data-zh="跨越虚空，连接永存。">
@@ -252,7 +238,6 @@
                     data-zh="寂静中心">
                     The Quiet Center
                 </h2>
-                <!-- 为了更好的排版，中英文使用了不同的段落结构，用 hidden 类来控制显示 -->
                 <div class="lang-content" data-lang-content="en">
                     <p class="section-text">
                         In the vastness of existence, some connections never fade. 
@@ -309,7 +294,6 @@
                    data-zh="即将登陆 App Store">
                    Available soon on the App Store.
                 </p>
-                <!-- 下载按钮链接，实际发布时请替换 href="#" 为你的 App Store 链接 -->
                 <a href="#" class="app-store-button" 
                    data-en="Download on the App Store" 
                    data-zh="在 App Store 下载">
@@ -327,20 +311,16 @@
 
     <!-- JavaScript 语言切换逻辑 -->
     <script>
-        // 核心切换函数
         function switchLanguage(lang) {
-            // 1. 更新所有带有 data-en/data-zh 属性的简单文本元素
             const textElements = document.querySelectorAll('[data-' + lang + ']');
             textElements.forEach(el => {
-                // 添加一个简单的淡入淡出效果
                 el.style.opacity = 0;
                 setTimeout(() => {
                     el.textContent = el.getAttribute('data-' + lang);
                     el.style.opacity = 1;
-                }, 150); // 短暂延迟以配合 CSS transition
+                }, 150);
             });
 
-            // 2. 切换复杂的块级内容 (如介绍段落)
             const contentBlocks = document.querySelectorAll('.lang-content');
             contentBlocks.forEach(block => {
                 if (block.getAttribute('data-lang-content') === lang) {
@@ -350,7 +330,6 @@
                 }
             });
 
-            // 3. 更新语言切换按钮的状态
             const langBtns = document.querySelectorAll('.lang-btn');
             langBtns.forEach(btn => {
                 if (btn.getAttribute('data-lang') === lang) {
@@ -360,18 +339,12 @@
                 }
             });
 
-            // 4. 更新 HTML 标签的 lang 属性，有利于 SEO 和辅助功能
             document.documentElement.lang = lang;
-
-            // 5. 保存用户的选择到本地存储
             localStorage.setItem('preferredLanguage', lang);
         }
 
-        // 页面加载时初始化语言
         document.addEventListener('DOMContentLoaded', () => {
-            // 优先检查本地存储，如果没有，则默认使用英语 ('en')
             const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-            // 应用保存的语言，但不需要再次保存
             switchLanguage(savedLang);
         });
     </script>
