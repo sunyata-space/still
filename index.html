@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>still - Connection Across the Void</title>
-    <meta name="description" content="still - A spiritual compass to commemorate departed loved ones. 跨越虚空，连接永存。一个用于纪念逝去亲人的心灵罗盘。">
+    <meta name="description" content="still - A spiritual compass to commemorate departed loved ones. 跨越虚空，连接永存。">
     <link rel="icon" type="image/png" href="app-icon.png">
     
     <style>
@@ -26,10 +26,9 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.7;
             background-image: radial-gradient(circle at 50% 0%, #1a233a 0%, var(--bg-color) 60%);
             background-attachment: fixed;
-            transition: color 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -41,7 +40,7 @@
             padding: 40px 20px;
             text-align: center;
             position: relative;
-            flex: 1; /* 让内容撑开高度 */
+            flex: 1;
             width: 100%;
             box-sizing: border-box;
         }
@@ -70,7 +69,7 @@
 
         /* === Hero 区域 === */
         .hero {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -103,22 +102,24 @@
             font-weight: 300;
             letter-spacing: 1px;
             opacity: 0.8;
+            font-style: italic;
         }
 
         /* === Tabs 导航 === */
         .tabs-nav {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             margin-bottom: 50px;
             border-bottom: 1px solid var(--divider-color);
             padding-bottom: 15px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
             background: none;
             border: none;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             cursor: pointer;
             padding: 8px 12px;
@@ -128,20 +129,17 @@
             letter-spacing: 1px;
         }
 
-        .tab-btn:hover {
-            color: var(--text-primary);
-        }
+        .tab-btn:hover { color: var(--text-primary); }
 
         .tab-btn.active {
             color: var(--accent-light);
             text-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
         }
         
-        /* 激活状态下的下划线光效 */
         .tab-btn.active::after {
             content: '';
             position: absolute;
-            bottom: -16px; /* 调整位置以对齐分割线 */
+            bottom: -16px;
             left: 0;
             width: 100%;
             height: 2px;
@@ -151,13 +149,11 @@
 
         /* === Tab 内容容器 === */
         .tab-content {
-            display: none; /* 默认隐藏 */
-            animation: fadeIn 0.6s ease;
+            display: none;
+            animation: fadeIn 0.8s ease;
         }
         
-        .tab-content.active {
-            display: block; /* 激活时显示 */
-        }
+        .tab-content.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -188,34 +184,55 @@
         p.section-text {
             font-size: 1rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 620px;
+            margin: 0 auto 20px;
             line-height: 1.8;
         }
 
         /* Features */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
             margin-top: 50px;
             margin-bottom: 50px;
         }
-        .feature-icon { font-size: 1.6rem; color: var(--accent-light); margin-bottom: 12px; }
-        .feature-title { font-weight: 500; margin-bottom: 8px; color: var(--text-primary); }
-        .feature-desc { font-size: 0.85rem; color: var(--text-secondary); }
+        .feature-item { padding: 10px; }
+        .feature-icon { font-size: 1.6rem; color: var(--accent-light); margin-bottom: 15px; }
+        .feature-title { font-weight: 500; margin-bottom: 10px; color: var(--text-primary); letter-spacing: 1px; }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* Story Tab Specifics */
+        .story-text {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: normal;
+            background: rgba(26, 35, 58, 0.3);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.05);
+        }
+        .story-text p { margin-bottom: 20px; }
+        .story-signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: var(--text-faint);
+        }
 
         /* Download Button */
         .download-wrapper { margin-top: 60px; margin-bottom: 40px; }
         .app-store-button {
             display: inline-block;
             border: 1px solid var(--text-secondary);
-            padding: 12px 28px;
+            padding: 12px 30px;
             border-radius: 50px;
             text-decoration: none;
             color: var(--text-primary);
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
         .app-store-button:hover {
             border-color: var(--accent-light);
@@ -224,45 +241,39 @@
             transform: translateY(-2px);
         }
 
-        /* === 法律条款样式 === */
+        /* Legal */
         .legal-wrapper {
             text-align: left;
             max-width: 680px;
             margin: 0 auto;
             padding-bottom: 40px;
         }
-        
-        .legal-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-        .legal-text h4 {
-            color: var(--text-primary);
-            margin-top: 30px;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        .legal-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; }
+        .legal-text h4 { color: var(--text-primary); margin-top: 30px; margin-bottom: 10px; font-weight: 500; }
         .legal-text ul { padding-left: 20px; margin: 10px 0; }
-        .legal-text li { margin-bottom: 8px; }
         .legal-text a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px; }
         .legal-text a:hover { color: var(--accent-light); }
 
         /* Footer */
         footer {
-            margin-top: auto; /* Push to bottom */
+            margin-top: auto;
             padding: 30px 0;
             border-top: 1px solid var(--divider-color);
             font-size: 0.8rem;
             color: var(--text-faint);
             text-align: center;
         }
-        
         footer a { color: var(--text-faint); text-decoration: none; margin: 0 10px; transition: color 0.2s; }
         footer a:hover { color: var(--accent-light); }
 
         .hidden { display: none !important; }
+        
+        @media (max-width: 600px) {
+            h1.app-title { font-size: 2.5rem; }
+            .tabs-nav { gap: 15px; }
+            .tab-btn { font-size: 0.9rem; padding: 8px; }
+            .story-text { padding: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -280,66 +291,74 @@
             <img src="app-icon.png" alt="still App Icon" class="app-icon">
             <h1 class="app-title">still</h1>
             <p class="tagline" 
-               data-en="Across the void, the connection remains." 
-               data-zh="跨越虚空，连接永存。">
-               Across the void, the connection remains.
+               data-en="Still loving, still here." 
+               data-zh="Still loving, still here.">
+               Still loving, still here.
             </p>
         </header>
 
         <!-- Tab 导航 -->
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="openTab('about')" data-en="About" data-zh="关于">About</button>
+            <button class="tab-btn" onclick="openTab('story')" data-en="Story" data-zh="初心">Story</button>
             <button class="tab-btn" onclick="openTab('privacy')" data-en="Privacy" data-zh="隐私">Privacy</button>
             <button class="tab-btn" onclick="openTab('terms')" data-en="Terms" data-zh="条款">Terms</button>
         </nav>
 
-        <!-- 1. About Tab (包含原有的介绍、功能和下载) -->
+        <!-- ==================== 1. About Tab ==================== -->
         <div id="tab-about" class="tab-content active">
             <section>
-                <h2 class="section-title" data-en="The Quiet Center" data-zh="寂静中心">The Quiet Center</h2>
+                <h2 class="section-title" data-en="To Never Forget" data-zh="不曾遗忘">To Never Forget</h2>
                 
                 <div class="lang-content" data-lang-content="en">
                     <p class="section-text">
-                        In the vastness of existence, some connections never fade. 
-                        <b>still</b> is more than a compass; it is a spiritual anchor. 
-                        It helps you navigate the space between here and the eternal resting place of those you hold dear.
+                        "Real parting isn't saying goodbye, it's forgetting."
+                    </p>
+                    <p class="section-text">
+                        <b>still</b> is a minimalist tool designed to guard your memories and entrust your grief. 
+                        Whether for a person, a pet, or a cherished object, we help you rebuild the connection through the dimensions of "direction" and "time".
                     </p>
                 </div>
                 <div class="lang-content hidden" data-lang-content="zh">
                     <p class="section-text">
-                        在万法皆空的宇宙中，唯有思念寂静而永恒。
-                        <b>still</b> 不仅仅是一个罗盘，它是心灵的锚点。
-                        指引你穿越现世的喧嚣，望向他们安息的彼岸。
+                        “真正的离别不是告别，而是遗忘。”
+                    </p>
+                    <p class="section-text">
+                        <b>still</b> 是一个为你守护记忆、寄托哀思的极简工具。
+                        无论为了逝去的亲人、爱宠，还是承载回忆的珍视之物，我们通过“方向”与“时间”的维度，帮你重新建立与那份爱的连接。
                     </p>
                 </div>
             </section>
 
             <section class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">✧</div>
-                    <div class="feature-title" data-en="The Moment" data-zh="时刻">The Moment</div>
-                    <div class="feature-desc" 
-                         data-en="Mark the stillness of time when they departed." 
-                         data-zh="记录时间静止的那一刻。">
-                         Mark the stillness of time when they departed.
-                    </div>
-                </div>
+                <!-- Direction -->
                 <div class="feature-item">
                     <div class="feature-icon">↑</div>
                     <div class="feature-title" data-en="The Direction" data-zh="方向">The Direction</div>
                     <div class="feature-desc" 
-                         data-en="A beam of light pointing to their eternal rest." 
-                         data-zh="一束指向彼岸的光。">
-                         A beam of light pointing to their eternal rest.
+                         data-en="A beam of light on the compass pointing to their eternal rest. Raise your phone, and connect with them." 
+                         data-zh="罗盘光束永远指向他们安息的方位。举起手机，那道光就是你们之间的连线。">
+                         A beam of light on the compass pointing to their eternal rest.
                     </div>
                 </div>
+                <!-- Spirits/Commemoration -->
                 <div class="feature-item">
-                    <div class="feature-icon">↔</div>
+                    <div class="feature-icon">✧</div>
+                    <div class="feature-title" data-en="The Memory" data-zh="纪念">The Memory</div>
+                    <div class="feature-desc" 
+                         data-en="For loved ones, pets at the Rainbow Bridge, or lost cherished objects. Every soul has a place here." 
+                         data-zh="为了亲人，为了回到星球的爱宠，也为了那些承载童年的旧物。万物皆有灵。">
+                         For loved ones, pets at the Rainbow Bridge, or lost cherished objects.
+                    </div>
+                </div>
+                <!-- Time & Distance -->
+                <div class="feature-item">
+                    <div class="feature-icon">∞</div>
                     <div class="feature-title" data-en="The Bond" data-zh="羁绊">The Bond</div>
                     <div class="feature-desc" 
-                         data-en="Measure the physical distance, feel the infinite connection." 
-                         data-zh="丈量有形的距离，感受无尽的羁绊。">
-                         Measure the physical distance, feel the infinite connection.
+                         data-en="Measure the physical distance across the void. Count the days, proving that love still continues." 
+                         data-zh="丈量跨越虚空的物理距离。记录离开的天数，数字跳动，爱意延续。">
+                         Measure the physical distance across the void. Count the days.
                     </div>
                 </div>
             </section>
@@ -358,88 +377,97 @@
             </section>
         </div>
 
-        <!-- 2. Privacy Tab -->
+        <!-- ==================== 2. Story Tab (Origin) ==================== -->
+        <div id="tab-story" class="tab-content">
+            <h2 class="section-title" data-en="The Origin" data-zh="初心">The Origin</h2>
+            
+            <!-- English Story -->
+            <div class="lang-content story-text" data-lang-content="en">
+                <p>Many years ago, my grandfather left me.</p>
+                <p>Because of work and distance, I missed the last moment. I never got to say a proper goodbye. That regret has stayed with me until today.</p>
+                <p>The unresolved grief and the unspeakable longing become especially intense every year on the anniversary of his passing.</p>
+                <p>A sudden thought struck me: why not use the power of AI to build something? A quiet place to entrust these thoughts, ensuring they are never forgotten.</p>
+                <p>This is why <b>still</b> exists.</p>
+                <p>I hope it brings you peace, and helps you find that connection again.</p>
+                <div class="story-signature">— The Developer</div>
+            </div>
+
+            <!-- Chinese Story -->
+            <div class="lang-content story-text hidden" data-lang-content="zh">
+                <p>很多年前，我的姥爷离开了我。</p>
+                <p>但由于工作与距离的关系，我没有见到他最后一面，也没有好好的告别。带着这份遗憾，一直到了今天。</p>
+                <p>那种无法释怀的情感和无法叙述的思念，每次到忌日的那天都会特别强烈。</p>
+                <p>偶然的一个念头，我想借助 AI 的能力做一个产品。希望能有一个地方寄托这份思念，确保那份爱永不被遗忘。</p>
+                <p>这就是 <b>still</b> 诞生的原因。</p>
+                <p>愿世间所有的离别，都能在这里找到重逢的彼岸。</p>
+                <div class="story-signature">— 开发者</div>
+            </div>
+        </div>
+
+        <!-- ==================== 3. Privacy Tab ==================== -->
         <div id="tab-privacy" class="tab-content">
             <div class="legal-wrapper">
                 <h2 class="section-title" data-en="Privacy Policy" data-zh="隐私政策">Privacy Policy</h2>
                 
-                <!-- English Privacy -->
                 <div class="lang-content legal-text" data-lang-content="en">
                     <p>Last updated: February 16, 2026</p>
-                    <p><b>still</b> ("we", "our") is built with privacy as a core principle. We utilize Apple's iCloud services to ensure your data belongs solely to you.</p>
-                    
+                    <p><b>still</b> is built with privacy as a core principle. Your data belongs solely to you.</p>
                     <h4>1. Data Storage and iCloud</h4>
-                    <p><b>still</b> does not maintain its own servers. All data you enter (including names, memorial dates, and target coordinates) is stored securely in your private <b>iCloud Container</b> via Apple's CloudKit framework.</p>
+                    <p>We do not maintain our own servers. All data (names, dates, coordinates) is stored securely in your private <b>iCloud Container</b> via Apple's CloudKit.</p>
                     <ul>
-                        <li>Only you can access your data using your Apple ID.</li>
-                        <li>We (the developers) have absolutely no access to your personal entries.</li>
+                        <li>Only you can access your data.</li>
+                        <li>We have absolutely no access to your personal entries.</li>
                     </ul>
-                    
                     <h4>2. Location Services</h4>
-                    <p>To function as a compass, the app requires permission to access your device's location. This data is processed <b>locally on your device</b> in real-time. Your current location is <b>never</b> uploaded to our servers or shared.</p>
-                    
-                    <h4>3. No Third-Party Tracking</h4>
-                    <p>We do not include any third-party analytics SDKs or advertising frameworks.</p>
-                    
+                    <p>Location is processed <b>locally on your device</b> for the compass feature. It is never uploaded or shared.</p>
+                    <h4>3. No Tracking</h4>
+                    <p>No third-party analytics or ads.</p>
                     <h4>4. Contact</h4>
                     <p>Contact us at: <a href="mailto:sunyata-space@github.io">sunyata-space@github.io</a></p>
                 </div>
 
-                <!-- Chinese Privacy -->
                 <div class="lang-content legal-text hidden" data-lang-content="zh">
                     <p>最近更新：2026年2月16日</p>
-                    <p><b>still</b> 将隐私视为核心原则。我们利用 Apple 的 iCloud 服务，确保您的数据完全归您所有。</p>
-                    
+                    <p><b>still</b> 将隐私视为核心原则。您的数据完全归您所有。</p>
                     <h4>1. 数据存储与 iCloud</h4>
-                    <p><b>still</b> 没有自建服务器。您输入的所有数据（包括姓名、纪念日和目标坐标）均通过 Apple 的 CloudKit 框架安全地存储在您的<b>私有 iCloud 容器</b>中。</p>
+                    <p>我们没有自建服务器。所有数据（姓名、日期、坐标）均安全存储在您的<b>私有 iCloud 容器</b>中。</p>
                     <ul>
-                        <li>只有您可以通过您的 Apple ID 访问这些数据。</li>
-                        <li>我们（开发者）完全无法查看或访问您的个人记录。</li>
+                        <li>只有您能访问这些数据。</li>
+                        <li>我们完全无法查看您的记录。</li>
                     </ul>
-                    
-                    <h4>2. 位置服务的使用</h4>
-                    <p>为了实现罗盘功能，App 需要访问您的设备位置权限。此数据仅在您的<b>设备本地</b>进行实时处理。您的当前位置<b>绝不会</b>上传至我们的服务器或被共享。</p>
-                    
-                    <h4>3. 无第三方追踪</h4>
-                    <p>我们不包含任何第三方分析 SDK 或广告框架。</p>
-                    
+                    <h4>2. 位置服务</h4>
+                    <p>位置数据仅在<b>设备本地</b>处理用于罗盘功能，绝不会上传或共享。</p>
+                    <h4>3. 无追踪</h4>
+                    <p>无第三方分析或广告。</p>
                     <h4>4. 联系我们</h4>
-                    <p>如有疑问请联系：<a href="mailto:sunyata-space@github.io">sunyata-space@github.io</a></p>
+                    <p>联系方式：<a href="mailto:sunyata-space@github.io">sunyata-space@github.io</a></p>
                 </div>
             </div>
         </div>
 
-        <!-- 3. Terms Tab -->
+        <!-- ==================== 4. Terms Tab ==================== -->
         <div id="tab-terms" class="tab-content">
             <div class="legal-wrapper">
                 <h2 class="section-title" data-en="Terms of Use" data-zh="使用条款">Terms of Use</h2>
                 
-                <!-- English Terms -->
                 <div class="lang-content legal-text" data-lang-content="en">
-                    <p>By downloading or using <b>still</b>, you agree to these terms.</p>
-                    
+                    <p>By using <b>still</b>, you agree to these terms.</p>
                     <h4>1. iCloud Requirement</h4>
-                    <p>To use the data synchronization features, you must be signed in to iCloud with a valid Apple ID.</p>
-                    
-                    <h4>2. Disclaimer of Accuracy</h4>
-                    <p>The compass and distance calculations utilize your device's sensors. Accuracy can be affected by environmental factors. This app is intended for commemorative and emotional connection purposes only and should not be used for critical navigation.</p>
-                    
+                    <p>You must be signed in to iCloud to sync data.</p>
+                    <h4>2. Disclaimer</h4>
+                    <p>Compass accuracy depends on device sensors. This app is for emotional connection, not critical navigation.</p>
                     <h4>3. Intellectual Property</h4>
-                    <p>The design, code, and "still" branding are the property of [Sunyata Space].</p>
+                    <p>Design and code belong to [Sunyata Space].</p>
                 </div>
 
-                <!-- Chinese Terms -->
                 <div class="lang-content legal-text hidden" data-lang-content="zh">
-                    <p>下载或使用 <b>still</b>，即表示您同意以下条款。</p>
-                    
-                    <h4>1. iCloud 使用要求</h4>
-                    <p>为了使用数据同步功能，您必须登录具有有效 Apple ID 的 iCloud 账户。</p>
-                    
-                    <h4>2. 准确性免责声明</h4>
-                    <p>罗盘和距离计算依赖于您设备的传感器。准确性可能会受到环境因素的影响。本应用仅用于纪念和情感寄托目的，不应作为专业导航工具使用。</p>
-                    
+                    <p>使用 <b>still</b> 即表示您同意以下条款。</p>
+                    <h4>1. iCloud 要求</h4>
+                    <p>需登录 iCloud 以同步数据。</p>
+                    <h4>2. 免责声明</h4>
+                    <p>罗盘准确性依赖设备传感器。本应用仅供情感寄托，不可用于专业导航。</p>
                     <h4>3. 知识产权</h4>
-                    <p>本应用的设计、代码及 "still" 品牌归 [Sunyata Space] 所有。</p>
+                    <p>设计与代码归 [Sunyata Space] 所有。</p>
                 </div>
             </div>
         </div>
@@ -452,28 +480,22 @@
         </div>
         <div>
             <span style="margin-right: 10px;">© 2026 Sunyata Space.</span>
-            <span data-en="Still here. Still remembering." data-zh="依然在此。依然铭记。">Still here. Still remembering.</span>
         </div>
     </footer>
 
     <!-- JavaScript 逻辑 -->
     <script>
-        // 切换 Tab 功能
+        // 切换 Tab
         function openTab(tabName) {
-            // 1. 隐藏所有 tab 内容
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // 2. 移除所有按钮的 active 状态
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // 3. 显示目标 tab 内容
             document.getElementById('tab-' + tabName).classList.add('active');
 
-            // 4. 激活对应按钮
-            // 找到调用该函数的按钮，这里通过 event.currentTarget 或者遍历查找
-            // 简单遍历查找对应 onclick 属性包含 tabName 的按钮
+            // 激活按钮状态
             buttons.forEach(btn => {
                 if(btn.getAttribute('onclick').includes(tabName)) {
                     btn.classList.add('active');
@@ -481,9 +503,8 @@
             });
         }
 
-        // 切换语言功能 (保持原有逻辑)
+        // 切换语言
         function switchLanguage(lang) {
-            // 切换带有 data-en/data-zh 属性的文本
             const textElements = document.querySelectorAll('[data-' + lang + ']');
             textElements.forEach(el => {
                 el.style.opacity = 0;
@@ -493,7 +514,6 @@
                 }, 150);
             });
 
-            // 切换大块内容 (Intro, Privacy Text, Terms Text)
             const contentBlocks = document.querySelectorAll('.lang-content');
             contentBlocks.forEach(block => {
                 if (block.getAttribute('data-lang-content') === lang) {
@@ -503,7 +523,6 @@
                 }
             });
 
-            // 切换语言按钮状态
             const langBtns = document.querySelectorAll('.lang-btn');
             langBtns.forEach(btn => {
                 if (btn.getAttribute('data-lang') === lang) {
@@ -513,14 +532,13 @@
                 }
             });
 
-            // 保存设置
             document.documentElement.lang = lang;
             localStorage.setItem('preferredLanguage', lang);
         }
 
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            const savedLang = localStorage.getItem('preferredLanguage') || 'zh'; // 默认设为中文可能更贴合你的故事，或者改回 'en'
             switchLanguage(savedLang);
         });
     </script>
