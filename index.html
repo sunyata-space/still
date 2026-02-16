@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>still - Connection Across the Void</title>
-    <meta name="description" content="still - A spiritual compass to commemorate departed loved ones. 跨越虚空，连接永存。">
+    <meta name="description" content="still - A spiritual compass to commemorate departed loved ones.">
     <link rel="icon" type="image/png" href="app-icon.png">
     
     <style>
@@ -45,27 +45,44 @@
             box-sizing: border-box;
         }
 
-        /* === 语言切换器 === */
-        .lang-switch {
+        /* === 语言下拉菜单 (新) === */
+        .lang-container {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 20px;
-            font-size: 0.9rem;
-            z-index: 10;
+            z-index: 100;
         }
-        
-        .lang-btn {
-            background: none;
-            border: none;
-            padding: 5px;
+
+        .lang-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: transparent;
+            border: 1px solid var(--text-faint);
+            color: var(--text-secondary);
+            padding: 5px 25px 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
             cursor: pointer;
-            color: var(--text-faint);
-            transition: color 0.3s ease;
-            font-weight: 500;
+            outline: none;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            text-align: right;
+            /* 自定义下拉箭头 */
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238b9bb0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px top 50%;
+            background-size: 8px auto;
         }
-        .lang-btn:hover { color: var(--text-secondary); }
-        .lang-btn.active { color: var(--accent-light); pointer-events: none; }
-        .lang-separator { color: var(--text-faint); margin: 0 4px; }
+
+        .lang-select:hover {
+            border-color: var(--accent-light);
+            color: var(--text-primary);
+        }
+
+        .lang-select option {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
 
         /* === Hero 区域 === */
         .hero {
@@ -273,116 +290,117 @@
             .tabs-nav { gap: 15px; }
             .tab-btn { font-size: 0.9rem; padding: 8px; }
             .story-text { padding: 20px; }
+            .lang-container { top: 10px; right: 10px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- 语言切换 -->
-        <div class="lang-switch">
-            <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">English</button>
-            <span class="lang-separator">/</span>
-            <button class="lang-btn" data-lang="zh" onclick="switchLanguage('zh')">中文</button>
+        <!-- 下拉式语言切换 -->
+        <div class="lang-container">
+            <select class="lang-select" id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="zh-CN">简体中文</option>
+                <option value="zh-TW">繁體中文</option>
+                <option value="en">English</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="es">Español</option>
+                <option value="pt">Português</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+                <option value="ru">Русский</option>
+                <option value="it">Italiano</option>
+            </select>
         </div>
 
         <!-- Hero Section -->
         <header class="hero">
             <img src="app-icon.png" alt="still App Icon" class="app-icon">
             <h1 class="app-title">still</h1>
-            <p class="tagline" 
-               data-en="Still loving, still here." 
-               data-zh="Still loving, still here.">
-               Still loving, still here.
-            </p>
+            <p class="tagline" data-i18n="tagline">Still loving, still here.</p>
         </header>
 
         <!-- Tab 导航 -->
         <nav class="tabs-nav">
-            <button class="tab-btn active" onclick="openTab('about')" data-en="About" data-zh="关于">About</button>
-            <button class="tab-btn" onclick="openTab('story')" data-en="Story" data-zh="初心">Story</button>
-            <button class="tab-btn" onclick="openTab('privacy')" data-en="Privacy" data-zh="隐私">Privacy</button>
-            <button class="tab-btn" onclick="openTab('terms')" data-en="Terms" data-zh="条款">Terms</button>
+            <button class="tab-btn active" onclick="openTab('about')" data-i18n="nav_about">About</button>
+            <button class="tab-btn" onclick="openTab('story')" data-i18n="nav_story">Story</button>
+            <button class="tab-btn" onclick="openTab('privacy')" data-i18n="nav_privacy">Privacy</button>
+            <button class="tab-btn" onclick="openTab('terms')" data-i18n="nav_terms">Terms</button>
         </nav>
 
         <!-- ==================== 1. About Tab ==================== -->
         <div id="tab-about" class="tab-content active">
             <section>
-                <h2 class="section-title" data-en="To Never Forget" data-zh="不曾遗忘">To Never Forget</h2>
+                <h2 class="section-title" data-i18n="title_about">To Never Forget</h2>
                 
-                <div class="lang-content" data-lang-content="en">
-                    <p class="section-text">
-                        "Real parting isn't saying goodbye, it's forgetting."
-                    </p>
+                <!-- 
+                   注意：为了简化代码，除了中文(zh-CN)和英文(en)，其他语言默认回退到英文文本。
+                   如果您有其他语言的完整翻译，可以复制下方的 block 并修改 data-lang 属性。
+                -->
+
+                <!-- English (Default for others) -->
+                <div class="lang-block" data-lang="en">
+                    <p class="section-text">"Real parting isn't saying goodbye, it's forgetting."</p>
                     <p class="section-text">
                         <b>still</b> is a minimalist tool designed to guard your memories and entrust your grief. 
                         Whether for a person, a pet, or a cherished object, we help you rebuild the connection through the dimensions of "direction" and "time".
                     </p>
                 </div>
-                <div class="lang-content hidden" data-lang-content="zh">
-                    <p class="section-text">
-                        “真正的离别不是告别，而是遗忘。”
-                    </p>
+
+                <!-- Simplified Chinese -->
+                <div class="lang-block hidden" data-lang="zh-CN">
+                    <p class="section-text">“真正的离别不是告别，而是遗忘。”</p>
                     <p class="section-text">
                         <b>still</b> 是一个为你守护记忆、寄托哀思的极简工具。
                         无论为了逝去的亲人、爱宠，还是承载回忆的珍视之物，我们通过“方向”与“时间”的维度，帮你重新建立与那份爱的连接。
                     </p>
                 </div>
+                
+                <!-- Traditional Chinese -->
+                 <div class="lang-block hidden" data-lang="zh-TW">
+                    <p class="section-text">「真正的離別不是告別，而是遺忘。」</p>
+                    <p class="section-text">
+                        <b>still</b> 是一個為你守護記憶、寄託哀思的極簡工具。
+                        無論為了逝去的親人、愛寵，還是承載回憶的珍視之物，我們通過「方向」與「時間」的維度，幫你重新建立與那份愛的連接。
+                    </p>
+                </div>
+
             </section>
 
             <section class="features-grid">
                 <!-- Direction -->
                 <div class="feature-item">
                     <div class="feature-icon">↑</div>
-                    <div class="feature-title" data-en="The Direction" data-zh="方向">The Direction</div>
-                    <div class="feature-desc" 
-                         data-en="A beam of light on the compass pointing to their eternal rest. Raise your phone, and connect with them." 
-                         data-zh="罗盘光束永远指向他们安息的方位。举起手机，那道光就是你们之间的连线。">
-                         A beam of light on the compass pointing to their eternal rest.
-                    </div>
+                    <div class="feature-title" data-i18n="feat_direction">The Direction</div>
+                    <div class="feature-desc" data-i18n="feat_direction_desc">A beam of light on the compass pointing to their eternal rest.</div>
                 </div>
-                <!-- Spirits/Commemoration -->
+                <!-- Memory -->
                 <div class="feature-item">
                     <div class="feature-icon">✧</div>
-                    <div class="feature-title" data-en="The Memory" data-zh="纪念">The Memory</div>
-                    <div class="feature-desc" 
-                         data-en="For loved ones, pets at the Rainbow Bridge, or lost cherished objects. Every soul has a place here." 
-                         data-zh="为了亲人，为了回到星球的爱宠，也为了那些承载童年的旧物。万物皆有灵。">
-                         For loved ones, pets at the Rainbow Bridge, or lost cherished objects.
-                    </div>
+                    <div class="feature-title" data-i18n="feat_memory">The Memory</div>
+                    <div class="feature-desc" data-i18n="feat_memory_desc">For loved ones, pets, or lost objects. Every soul has a place here.</div>
                 </div>
-                <!-- Time & Distance -->
+                <!-- Bond -->
                 <div class="feature-item">
                     <div class="feature-icon">∞</div>
-                    <div class="feature-title" data-en="The Bond" data-zh="羁绊">The Bond</div>
-                    <div class="feature-desc" 
-                         data-en="Measure the physical distance across the void. Count the days, proving that love still continues." 
-                         data-zh="丈量跨越虚空的物理距离。记录离开的天数，数字跳动，爱意延续。">
-                         Measure the physical distance across the void. Count the days.
-                    </div>
+                    <div class="feature-title" data-i18n="feat_bond">The Bond</div>
+                    <div class="feature-desc" data-i18n="feat_bond_desc">Measure the distance. Count the days. Love still continues.</div>
                 </div>
             </section>
 
             <section class="download-wrapper">
-                <p class="section-text" style="margin-bottom: 20px; font-size: 0.85rem;" 
-                   data-en="Coming soon to the App Store." 
-                   data-zh="即将登陆 App Store">
-                   Coming soon to the App Store.
-                </p>
-                <a href="#" class="app-store-button" 
-                   data-en="Download on the App Store" 
-                   data-zh="在 App Store 下载">
-                    Download on the App Store
-                </a>
+                <p class="section-text" style="margin-bottom: 20px; font-size: 0.85rem;" data-i18n="coming_soon">Coming soon to the App Store.</p>
+                <a href="#" class="app-store-button" data-i18n="download_btn">Download on the App Store</a>
             </section>
         </div>
 
-        <!-- ==================== 2. Story Tab (Origin) ==================== -->
+        <!-- ==================== 2. Story Tab ==================== -->
         <div id="tab-story" class="tab-content">
-            <h2 class="section-title" data-en="The Origin" data-zh="初心">The Origin</h2>
+            <h2 class="section-title" data-i18n="title_story">The Origin</h2>
             
             <!-- English Story -->
-            <div class="lang-content story-text" data-lang-content="en">
+            <div class="lang-block story-text" data-lang="en">
                 <p>Many years ago, my grandfather left me.</p>
                 <p>Because of work and distance, I missed the last moment. I never got to say a proper goodbye. That regret has stayed with me until today.</p>
                 <p>The unresolved grief and the unspeakable longing become especially intense every year on the anniversary of his passing.</p>
@@ -392,8 +410,8 @@
                 <div class="story-signature">— The Developer</div>
             </div>
 
-            <!-- Chinese Story -->
-            <div class="lang-content story-text hidden" data-lang-content="zh">
+            <!-- Simplified Chinese Story -->
+            <div class="lang-block story-text hidden" data-lang="zh-CN">
                 <p>很多年前，我的姥爷离开了我。</p>
                 <p>但由于工作与距离的关系，我没有见到他最后一面，也没有好好的告别。带着这份遗憾，一直到了今天。</p>
                 <p>那种无法释怀的情感和无法叙述的思念，每次到忌日的那天都会特别强烈。</p>
@@ -402,45 +420,36 @@
                 <p>愿世间所有的离别，都能在这里找到重逢的彼岸。</p>
                 <div class="story-signature">— 开发者</div>
             </div>
+
+            <!-- Traditional Chinese Story -->
+            <div class="lang-block story-text hidden" data-lang="zh-TW">
+                <p>很多年前，我的姥爺離開了我。</p>
+                <p>但由於工作與距離的關係，我沒有見到他最後一面，也沒有好好的告別。帶著這份遺憾，一直到了今天。</p>
+                <p>那種無法釋懷的情感和無法敘述的思念，每次到忌日的那天都會特別強烈。</p>
+                <p>偶然的一個念頭，我想借助 AI 的能力做一個產品。希望能有一個地方寄託這份思念，確保那份愛永不被遺忘。</p>
+                <p>這就是 <b>still</b> 誕生的原因。</p>
+                <p>願世間所有的離別，都能在這裡找到重逢的彼岸。</p>
+                <div class="story-signature">— 開發者</div>
+            </div>
         </div>
 
-        <!-- ==================== 3. Privacy Tab ==================== -->
+        <!-- ==================== 3. Privacy Tab (Simplified for space) ==================== -->
         <div id="tab-privacy" class="tab-content">
             <div class="legal-wrapper">
-                <h2 class="section-title" data-en="Privacy Policy" data-zh="隐私政策">Privacy Policy</h2>
+                <h2 class="section-title" data-i18n="nav_privacy">Privacy Policy</h2>
                 
-                <div class="lang-content legal-text" data-lang-content="en">
-                    <p>Last updated: February 16, 2026</p>
+                <div class="lang-block legal-text" data-lang="en">
                     <p><b>still</b> is built with privacy as a core principle. Your data belongs solely to you.</p>
-                    <h4>1. Data Storage and iCloud</h4>
-                    <p>We do not maintain our own servers. All data (names, dates, coordinates) is stored securely in your private <b>iCloud Container</b> via Apple's CloudKit.</p>
-                    <ul>
-                        <li>Only you can access your data.</li>
-                        <li>We have absolutely no access to your personal entries.</li>
-                    </ul>
-                    <h4>2. Location Services</h4>
-                    <p>Location is processed <b>locally on your device</b> for the compass feature. It is never uploaded or shared.</p>
-                    <h4>3. No Tracking</h4>
-                    <p>No third-party analytics or ads.</p>
-                    <h4>4. Contact</h4>
-                    <p>Contact us at: <a href="mailto:sunyata-space@github.io">sunyata-space@github.io</a></p>
+                    <p>We do not maintain servers. All data is stored in your private <b>iCloud Container</b>. Location data is processed locally.</p>
                 </div>
-
-                <div class="lang-content legal-text hidden" data-lang-content="zh">
-                    <p>最近更新：2026年2月16日</p>
+                
+                <div class="lang-block legal-text hidden" data-lang="zh-CN">
                     <p><b>still</b> 将隐私视为核心原则。您的数据完全归您所有。</p>
-                    <h4>1. 数据存储与 iCloud</h4>
-                    <p>我们没有自建服务器。所有数据（姓名、日期、坐标）均安全存储在您的<b>私有 iCloud 容器</b>中。</p>
-                    <ul>
-                        <li>只有您能访问这些数据。</li>
-                        <li>我们完全无法查看您的记录。</li>
-                    </ul>
-                    <h4>2. 位置服务</h4>
-                    <p>位置数据仅在<b>设备本地</b>处理用于罗盘功能，绝不会上传或共享。</p>
-                    <h4>3. 无追踪</h4>
-                    <p>无第三方分析或广告。</p>
-                    <h4>4. 联系我们</h4>
-                    <p>联系方式：<a href="mailto:sunyata-space@github.io">sunyata-space@github.io</a></p>
+                    <p>我们没有自建服务器。所有数据均存储在您的<b>私有 iCloud 容器</b>中。位置数据仅在本地处理。</p>
+                </div>
+                 <div class="lang-block legal-text hidden" data-lang="zh-TW">
+                    <p><b>still</b> 將隱私視為核心原則。您的數據完全歸您所有。</p>
+                    <p>我們沒有自建服務器。所有數據均存儲在您的<b>私有 iCloud 容器</b>中。位置數據僅在本地處理。</p>
                 </div>
             </div>
         </div>
@@ -448,26 +457,18 @@
         <!-- ==================== 4. Terms Tab ==================== -->
         <div id="tab-terms" class="tab-content">
             <div class="legal-wrapper">
-                <h2 class="section-title" data-en="Terms of Use" data-zh="使用条款">Terms of Use</h2>
-                
-                <div class="lang-content legal-text" data-lang-content="en">
+                <h2 class="section-title" data-i18n="nav_terms">Terms of Use</h2>
+                 <div class="lang-block legal-text" data-lang="en">
                     <p>By using <b>still</b>, you agree to these terms.</p>
-                    <h4>1. iCloud Requirement</h4>
-                    <p>You must be signed in to iCloud to sync data.</p>
-                    <h4>2. Disclaimer</h4>
-                    <p>Compass accuracy depends on device sensors. This app is for emotional connection, not critical navigation.</p>
-                    <h4>3. Intellectual Property</h4>
-                    <p>Design and code belong to [Sunyata Space].</p>
+                    <p>You must be signed in to iCloud. Compass accuracy depends on device sensors. For emotional support only.</p>
                 </div>
-
-                <div class="lang-content legal-text hidden" data-lang-content="zh">
+                <div class="lang-block legal-text hidden" data-lang="zh-CN">
                     <p>使用 <b>still</b> 即表示您同意以下条款。</p>
-                    <h4>1. iCloud 要求</h4>
-                    <p>需登录 iCloud 以同步数据。</p>
-                    <h4>2. 免责声明</h4>
-                    <p>罗盘准确性依赖设备传感器。本应用仅供情感寄托，不可用于专业导航。</p>
-                    <h4>3. 知识产权</h4>
-                    <p>设计与代码归 [Sunyata Space] 所有。</p>
+                    <p>需登录 iCloud。罗盘准确性依赖设备传感器。仅供情感寄托。</p>
+                </div>
+                 <div class="lang-block legal-text hidden" data-lang="zh-TW">
+                    <p>使用 <b>still</b> 即表示您同意以下條款。</p>
+                    <p>需登錄 iCloud。羅盤準確性依賴設備傳感器。僅供情感寄託。</p>
                 </div>
             </div>
         </div>
@@ -483,9 +484,155 @@
         </div>
     </footer>
 
-    <!-- JavaScript 逻辑 -->
+    <!-- JavaScript Logic -->
     <script>
-        // 切换 Tab
+        // === 1. Translation Dictionary (Short Texts) ===
+        const translations = {
+            "zh-CN": {
+                tagline: "Still loving, still here.",
+                nav_about: "关于", nav_story: "初心", nav_privacy: "隐私", nav_terms: "条款",
+                title_about: "不曾遗忘", title_story: "初心",
+                feat_direction: "方向", feat_direction_desc: "罗盘光束永远指向他们安息的方位。",
+                feat_memory: "纪念", feat_memory_desc: "为了亲人，爱宠，或承载回忆的旧物。",
+                feat_bond: "羁绊", feat_bond_desc: "丈量跨越虚空的距离，记录延续的爱意。",
+                coming_soon: "即将登陆 App Store", download_btn: "在 App Store 下载"
+            },
+            "zh-TW": {
+                tagline: "Still loving, still here.",
+                nav_about: "關於", nav_story: "初心", nav_privacy: "隱私", nav_terms: "條款",
+                title_about: "不曾遺忘", title_story: "初心",
+                feat_direction: "方向", feat_direction_desc: "羅盤光束永遠指向他們安息的方位。",
+                feat_memory: "紀念", feat_memory_desc: "為了親人，愛寵，或承載回憶的舊物。",
+                feat_bond: "羈絆", feat_bond_desc: "丈量跨越虛空的距離，記錄延續的愛意。",
+                coming_soon: "即將登陸 App Store", download_btn: "在 App Store 下載"
+            },
+            "en": {
+                tagline: "Still loving, still here.",
+                nav_about: "About", nav_story: "Story", nav_privacy: "Privacy", nav_terms: "Terms",
+                title_about: "To Never Forget", title_story: "The Origin",
+                feat_direction: "The Direction", feat_direction_desc: "A beam of light pointing to their eternal rest.",
+                feat_memory: "The Memory", feat_memory_desc: "For loved ones, pets, or lost objects.",
+                feat_bond: "The Bond", feat_bond_desc: "Measure the distance. Count the days.",
+                coming_soon: "Coming soon to the App Store.", download_btn: "Download on the App Store"
+            },
+            "ja": {
+                tagline: "Still loving, still here.",
+                nav_about: "紹介", nav_story: "想い", nav_privacy: "規約", nav_terms: "利用",
+                title_about: "忘れないために", title_story: "はじまり",
+                feat_direction: "方角", feat_direction_desc: "彼らが眠る場所を指し示す光の束。",
+                feat_memory: "追悼", feat_memory_desc: "大切な人、ペット、思い出の品のために。",
+                feat_bond: "絆", feat_bond_desc: "虚空を超えた距離を測り、愛を刻む。",
+                coming_soon: "App Storeで近日公開", download_btn: "App Storeからダウンロード"
+            },
+            "ko": {
+                tagline: "Still loving, still here.",
+                nav_about: "소개", nav_story: "이야기", nav_privacy: "개인정보", nav_terms: "이용약관",
+                title_about: "잊지 않기 위해", title_story: "시작",
+                feat_direction: "방향", feat_direction_desc: "그들이 잠든 곳을 가리키는 나침반의 빛.",
+                feat_memory: "기억", feat_memory_desc: "사랑하는 사람, 반려동물, 소중한 물건을 위해.",
+                feat_bond: "유대", feat_bond_desc: "거리를 측정하고, 그리움의 시간을 기록합니다.",
+                coming_soon: "App Store 출시 예정", download_btn: "App Store에서 다운로드"
+            },
+            "es": {
+                tagline: "Still loving, still here.",
+                nav_about: "Sobre", nav_story: "Historia", nav_privacy: "Privacidad", nav_terms: "Términos",
+                title_about: "Para No Olvidar", title_story: "El Origen",
+                feat_direction: "La Dirección", feat_direction_desc: "Un haz de luz que apunta a su descanso eterno.",
+                feat_memory: "La Memoria", feat_memory_desc: "Para seres queridos, mascotas u objetos perdidos.",
+                feat_bond: "El Vínculo", feat_bond_desc: "Mide la distancia. Cuenta los días.",
+                coming_soon: "Próximamente en App Store", download_btn: "Descargar en App Store"
+            },
+            "pt": {
+                tagline: "Still loving, still here.",
+                nav_about: "Sobre", nav_story: "História", nav_privacy: "Privacidade", nav_terms: "Termos",
+                title_about: "Para Nunca Esquecer", title_story: "A Origem",
+                feat_direction: "A Direção", feat_direction_desc: "Um feixe de luz apontando para seu descanso eterno.",
+                feat_memory: "A Memória", feat_memory_desc: "Para entes queridos, animais ou objetos perdidos.",
+                feat_bond: "O Vínculo", feat_bond_desc: "Meça a distância. Conte os dias.",
+                coming_soon: "Em breve na App Store", download_btn: "Baixar na App Store"
+            },
+            "de": {
+                tagline: "Still loving, still here.",
+                nav_about: "Über", nav_story: "Story", nav_privacy: "Datenschutz", nav_terms: "AGB",
+                title_about: "Niemals vergessen", title_story: "Der Ursprung",
+                feat_direction: "Die Richtung", feat_direction_desc: "Ein Lichtstrahl, der zu ihrer ewigen Ruhe weist.",
+                feat_memory: "Die Erinnerung", feat_memory_desc: "Für geliebte Menschen, Haustiere oder Gegenstände.",
+                feat_bond: "Das Band", feat_bond_desc: "Miss die Entfernung. Zähle die Tage.",
+                coming_soon: "Bald im App Store", download_btn: "Laden im App Store"
+            },
+            "fr": {
+                tagline: "Still loving, still here.",
+                nav_about: "À propos", nav_story: "Histoire", nav_privacy: "Confidentialité", nav_terms: "Conditions",
+                title_about: "Pour ne jamais oublier", title_story: "L'Origine",
+                feat_direction: "La Direction", feat_direction_desc: "Un faisceau de lumière pointant vers leur repos éternel.",
+                feat_memory: "La Mémoire", feat_memory_desc: "Pour les proches, animaux ou objets perdus.",
+                feat_bond: "Le Lien", feat_bond_desc: "Mesurez la distance. Comptez les jours.",
+                coming_soon: "Bientôt sur l'App Store", download_btn: "Télécharger sur l'App Store"
+            },
+            "ru": {
+                tagline: "Still loving, still here.",
+                nav_about: "О нас", nav_story: "История", nav_privacy: "Приватность", nav_terms: "Условия",
+                title_about: "Чтобы помнить", title_story: "Начало",
+                feat_direction: "Направление", feat_direction_desc: "Луч света, указывающий на место их покоя.",
+                feat_memory: "Память", feat_memory_desc: "Для близких, питомцев или памятных вещей.",
+                feat_bond: "Связь", feat_bond_desc: "Измерьте расстояние. Считайте дни.",
+                coming_soon: "Скоро в App Store", download_btn: "Скачать в App Store"
+            },
+            "it": {
+                tagline: "Still loving, still here.",
+                nav_about: "Info", nav_story: "Storia", nav_privacy: "Privacy", nav_terms: "Termini",
+                title_about: "Per non dimenticare", title_story: "L'Origine",
+                feat_direction: "La Direzione", feat_direction_desc: "Un raggio di luce che punta al loro riposo eterno.",
+                feat_memory: "La Memoria", feat_memory_desc: "Per i propri cari, animali domestici o oggetti smarriti.",
+                feat_bond: "Il Legame", feat_bond_desc: "Misura la distanza. Conta i giorni.",
+                coming_soon: "Presto su App Store", download_btn: "Scarica su App Store"
+            }
+        };
+
+        // === 2. Core Logic ===
+        
+        function changeLanguage(lang) {
+            // A. 更新简单的文本标签 (data-i18n)
+            // 如果字典里没有这个语言，默认用英语
+            const dict = translations[lang] || translations['en'];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.style.opacity = 0;
+                    setTimeout(() => {
+                        el.textContent = dict[key];
+                        el.style.opacity = 1;
+                    }, 150);
+                }
+            });
+
+            // B. 更新长文本块 (data-lang)
+            // 逻辑：寻找当前Tab内符合 data-lang="lang" 的块，如果没有，回退到 "en"
+            document.querySelectorAll('.lang-block').forEach(block => {
+                const blockLang = block.getAttribute('data-lang');
+                
+                // 1. 尝试精确匹配
+                if (blockLang === lang) {
+                    block.classList.remove('hidden');
+                } else if (blockLang === 'en' && !hasLanguageBlock(block.parentNode, lang)) {
+                    // 2. 如果没有目标语言的块，显示英语作为后备
+                    block.classList.remove('hidden');
+                } else {
+                    block.classList.add('hidden');
+                }
+            });
+
+            // 保存设置
+            document.documentElement.lang = lang;
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 辅助函数：检查父容器内是否有特定语言的块
+        function hasLanguageBlock(parent, lang) {
+            return parent.querySelector(`.lang-block[data-lang="${lang}"]`) !== null;
+        }
+
         function openTab(tabName) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -495,51 +642,63 @@
 
             document.getElementById('tab-' + tabName).classList.add('active');
 
-            // 激活按钮状态
+            // 激活对应按钮
             buttons.forEach(btn => {
                 if(btn.getAttribute('onclick').includes(tabName)) {
                     btn.classList.add('active');
                 }
             });
+            
+            // 切换 Tab 时重新触发一次语言刷新，确保长文本显示正确
+            const currentLang = document.getElementById('languageSelect').value;
+            changeLanguage(currentLang);
         }
 
-        // 切换语言
-        function switchLanguage(lang) {
-            const textElements = document.querySelectorAll('[data-' + lang + ']');
-            textElements.forEach(el => {
-                el.style.opacity = 0;
-                setTimeout(() => {
-                    el.textContent = el.getAttribute('data-' + lang);
-                    el.style.opacity = 1;
-                }, 150);
-            });
-
-            const contentBlocks = document.querySelectorAll('.lang-content');
-            contentBlocks.forEach(block => {
-                if (block.getAttribute('data-lang-content') === lang) {
-                    block.classList.remove('hidden');
-                } else {
-                    block.classList.add('hidden');
-                }
-            });
-
-            const langBtns = document.querySelectorAll('.lang-btn');
-            langBtns.forEach(btn => {
-                if (btn.getAttribute('data-lang') === lang) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            document.documentElement.lang = lang;
-            localStorage.setItem('preferredLanguage', lang);
-        }
-
-        // 初始化
+        // === 3. Initialization & Auto-Detect ===
         document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('preferredLanguage') || 'zh'; // 默认设为中文可能更贴合你的故事，或者改回 'en'
-            switchLanguage(savedLang);
+            const select = document.getElementById('languageSelect');
+            
+            // 1. 优先读取 LocalStorage
+            let savedLang = localStorage.getItem('preferredLanguage');
+
+            // 2. 如果没有，读取系统语言
+            if (!savedLang) {
+                const sysLang = navigator.language || navigator.userLanguage; 
+                // sysLang 可能是 "zh-CN", "en-US", "ja", "fr-FR"
+                
+                // 简单的映射逻辑
+                if (sysLang.startsWith('zh')) {
+                    // 区分简繁体
+                    savedLang = (sysLang.toLowerCase().includes('tw') || sysLang.toLowerCase().includes('hk')) ? 'zh-TW' : 'zh-CN';
+                } else if (sysLang.startsWith('en')) {
+                    savedLang = 'en';
+                } else if (sysLang.startsWith('ja')) {
+                    savedLang = 'ja';
+                } else if (sysLang.startsWith('ko')) {
+                    savedLang = 'ko';
+                } else if (sysLang.startsWith('es')) {
+                    savedLang = 'es';
+                } else if (sysLang.startsWith('pt')) {
+                    savedLang = 'pt';
+                } else if (sysLang.startsWith('de')) {
+                    savedLang = 'de';
+                } else if (sysLang.startsWith('fr')) {
+                    savedLang = 'fr';
+                } else if (sysLang.startsWith('ru')) {
+                    savedLang = 'ru';
+                } else if (sysLang.startsWith('it')) {
+                    savedLang = 'it';
+                } else {
+                    savedLang = 'en'; // 默认回退
+                }
+            }
+
+            // 设置下拉框的值并触发更改
+            select.value = savedLang;
+            // 如果 select.value 没有被正确设置（比如系统是阿拉伯语，但我们不支持），它会变为空
+            if (!select.value) select.value = 'en';
+            
+            changeLanguage(select.value);
         });
     </script>
 </body>
